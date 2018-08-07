@@ -34,3 +34,20 @@ class models:
 				trainlabels.reshape((len(trainlabels),10)),\
 				testdata.reshape((len(testdata),784)),\
 				testlabels.reshape((len(testlabels),10))
+
+	def MLPNN_type1(traindata, trainlabels, testdata, testlabels):
+		model = Sequential()
+		model.add(Dense(64, activation='relu', input_shape=(784,)))
+		model.add(Dropout(0.2))
+		model.add(Dense(64, activation='relu'))
+		model.add(Dropout(0.2))
+		model.add(Dense(64, activation='relu'))
+		model.add(Dropout(0.2))
+		model.add(Dense(64, activation='relu'))
+		model.add(Dropout(0.2))				
+		model.add(Dense(10, activation='softmax'))
+		return  model,\
+				traindata.reshape((len(traindata),784)),\
+				trainlabels.reshape((len(trainlabels),10)),\
+				testdata.reshape((len(testdata),784)),\
+				testlabels.reshape((len(testlabels),10))
