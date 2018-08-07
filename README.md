@@ -9,6 +9,8 @@ python3 recognizer.py -f ./mnist_models/MLPNN_type0-batch512-balanced-committee2
 python3 recognizer.py -f ./mnist_models/MLPNN_type0-batch512-balanced-committee20/    
 python3 recognizer.py   
 
+![Alt text](./images/1.png?raw=true "Example")
+
 training models examples (trainer.py):
 
 python3 trainer.py -s 512 -m "MLPNN_type0" -e 100 -c 20 -b
