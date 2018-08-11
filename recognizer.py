@@ -81,7 +81,7 @@ def draw_wrapper(modeldir, verbose):
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-f", "--modeldir", dest="modeldir", 
-                      default="./mnist_models/CNN2D_type0-batch128/",
+                      default="./mnist_models/CNN2D_type0-batch128-balanced/",
                         help="keras directory where modelx.best.hdf5 are stored")
     parser.add_option("-v", "--verbose", dest="verbose", 
                       default=False, action="store_true",

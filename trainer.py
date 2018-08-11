@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from keras.layers import Activation, Conv2D, MaxPooling2D
 from keras.layers import Dense, Dropout, Flatten
 from keras.callbacks import ModelCheckpoint
+from keras.models import load_model
 from keras.models import Sequential
 from keras.utils import plot_model
 from optparse import OptionParser
@@ -104,22 +105,45 @@ if __name__ == '__main__':
 				  epochs = options.epochs,
 				  callbacks = [checkpoint])
 
-		plt.figure(1)
+		model = load_model(options.dirname+"/model"+str(nn)+".best.hdf5")
+		history2 = model.fit(trains, labels, 
+				  batch_size = options.batch_size,
+				  validation_data = (t_trains,t_labels),
+				  epochs = 1)
+
+		print('best validation accuracy :', history2.history['val_acc'][0])
+		print('best validation loss     :', history2.history['val_loss'][0])
+		print('best accuracy            :', history2.history['acc'][0])
+		print('best loss                :', history2.history['loss'][0])
+
+		file = open(options.dirname+"/res","w")
+		file.write('best validation accuracy :'+str(history2.history['val_acc'][0])+"\n")
+		file.write('best validation loss     :'+str(history2.history['val_loss'][0])+"\n")
+		file.write('best accuracy            :'+str(history2.history['acc'][0])+"\n")
+		file.write('best loss                :'+str(history2.history['loss'][0])+"\n")
+
+		f = plt.figure(1)
 		plt.plot(history.history['acc'])  
 		plt.plot(history.history['val_acc'])  
-		plt.title('model accuracy')  
+		plt.title('model accuracy') 
+		plt.xlim(0, 100)
+		plt.ylim(0.8, 1)
 		plt.ylabel('accuracy')  
 		plt.xlabel('epoch')  
 		plt.legend(['train', 'test'], loc='upper left')  
 		plt.savefig(options.dirname+"/"+str(nn)+"train_loss_acc.png")
 		plt.close()
 
-		plt.figure(2)
+		f = plt.figure(2)
 		plt.plot(history.history['loss'])  
 		plt.plot(history.history['val_loss'])  
-		plt.title('model loss')  
+		plt.title('model loss') 
+		plt.xlim(0, 100)
+		plt.ylim(0, 0.6)		
 		plt.ylabel('loss')  
 		plt.xlabel('epoch')  
 		plt.legend(['train', 'test'], loc='upper left')  
 		plt.savefig(options.dirname+"/"+str(nn)+"test_loss_acc.png") 
 		plt.close()
+
+		
